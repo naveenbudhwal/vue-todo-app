@@ -1,19 +1,33 @@
 <template>
   <div>
     <ul>
-      <li>
-        Hello World
+      <li v-for="todo in todos" :key="todo">
+        <span>{{todo}}</span>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-export default {
+import ToDoAPI from "../services/ToDoAPI.js";
 
-}
+export default {
+  data() {
+    return {
+      todos: []
+    };
+  },
+  mounted() {
+    this.loadTodos();
+  },
+  methods: {
+    async loadTodos() {
+      const response = await ToDoAPI.getToDos();
+      this.todos = response.data;
+    }
+  }
+};
 </script>
 
 <style>
-
 </style>
