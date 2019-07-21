@@ -27,7 +27,7 @@ app.use(morgan('dev'))
 app.use(bodyParser.json())
 app.use(cors())
 
-app.get('/todo', (req, res) => {
+app.get("/todo", (req, res) => {
   const collection = client.db("test").collection("todos")
   collection.find().toArray(function (err, results) {
     if (err) {
@@ -37,6 +37,19 @@ app.get('/todo', (req, res) => {
     }
 
     res.send(results)
+  })
+})
+
+app.post("/addTodo", (req, res) => {
+  const collection = client.db("test").collection("todos")
+  var todo = req.body.todo // Parse the data from the request's body
+  collection.insertOne({ title: todo }, function (err, results) {
+    if (err) {
+      console.log(err)
+      res.send("")
+      return
+    }
+    res.send(results.ops[0])
   })
 })
 
