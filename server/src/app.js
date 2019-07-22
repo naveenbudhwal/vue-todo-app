@@ -53,4 +53,17 @@ app.post('/addTodo', (req, res) => {
   })
 })
 
+app.post("/deleteTodo", (req, res) => {
+  const collection = client.db("test").collection("todos")
+  // Remove Document by it's unique ID
+  collection.removeOne({ "_id": mongo.ObjectID(req.body.todoID) }, function (err, results) {
+    if (err) {
+      console.log(err)
+      res.send("")
+      return
+    }
+    res.send() // Return
+  })
+})
+
 app.listen(process.env.PORT || 8082)
