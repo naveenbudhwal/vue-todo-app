@@ -1,11 +1,11 @@
-<template>
+<template lang="html">
   <div>
-    <form @submit="addToDo($event)">
-      <input type="text" placeholder="Enter ToDo" v-model="newTodo" />
-      <input type="submit" />
+    <form v-on:submit='addTodo($event)'>
+      <input type='text' placeholder='Enter Todo' v-model='newTodo'/>
+      <input type='submit' />
     </form>
     <ul>
-      <li v-for="todo in todos" :key="todo">
+      <li v-for='todo in todos' :key='todo._id'>
         <span>{{todo}}</span>
       </li>
     </ul>
@@ -13,12 +13,11 @@
 </template>
 
 <script>
-import ToDoAPI from "../services/ToDoAPI.js";
-
+import ToDoAPI from "@/services/ToDoAPI.js";
 export default {
   data() {
     return {
-      newToDo: "",
+      newTodo: "",
       todos: []
     };
   },
@@ -26,11 +25,11 @@ export default {
     this.loadTodos();
   },
   methods: {
-    async addToDo(evt) {
-      evt.preventDefault();
-      const response = await ToDoAPI.addToDo(this.newToDo);
+    async addTodo(evt) {
+      evt.preventDefault(); // prevents the form's default action from redirecting the page
+      const response = await ToDoAPI.addTodo(this.newTodo);
       this.todos.push(response.data);
-      this.newToDo = "";
+      this.newTodo = ""; // clear the input field
     },
     async loadTodos() {
       const response = await ToDoAPI.getToDos();

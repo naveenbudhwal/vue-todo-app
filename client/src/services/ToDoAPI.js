@@ -4,9 +4,9 @@ export default {
   getToDos() {
     return API().get("todo")
   },
-  addToDo(todo) {
-    return API().push("addToDo", {
-      todo: todo
+  addTodo(todo) {
+    return API().post('addTodo', {
+      todo: todo // add our data to the request body
     })
   }
 }

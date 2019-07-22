@@ -40,16 +40,16 @@ app.get("/todo", (req, res) => {
   })
 })
 
-app.post("/addTodo", (req, res) => {
-  const collection = client.db("test").collection("todos")
-  var todo = req.body.todo // Parse the data from the request's body
+app.post('/addTodo', (req, res) => {
+  const collection = client.db('test').collection('todos')
+  var todo = req.body.todo // parse the data from the request's body
   collection.insertOne({ title: todo }, function (err, results) {
     if (err) {
       console.log(err)
-      res.send("")
+      res.send('')
       return
     }
-    res.send(results.ops[0])
+    res.send(results.ops[0]) // returns the new document
   })
 })
 
